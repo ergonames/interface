@@ -37,7 +37,7 @@ export async function sendTransaction(name: string, receiverAddress: string) {
 
     let signedTransaction = await ergo.sign_tx(unsignedTransaction);
     let txInfo = await ergo.submit_tx(signedTransaction);
-    return { txInfo: txInfo }
+    return { transactionInfo: txInfo };
 }
 
 async function getCurrentHeight() {

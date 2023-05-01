@@ -1,12 +1,15 @@
 import { getErgoNameRegistrationData } from "ergonames";
 import { sendTransaction } from "@/utils/txBuilder";
 import { useState } from "react";
+import SentTransactionModal from "./sentTransactionModal";
 
 export default function SearchBoxModal() {
     const [searchQuery, setSearchQuery] = useState("");
     const [available, setAvailable] = useState(false);
     const [resolvedAddress, setResolvedAddress] = useState("");
     const [priceToRegister, setPriceToRegister] = useState(0);
+    const [showSentTransactionModal, setShowTransactionModal] = useState(false);
+    const [sentTransactionId, setSentTransactionId] = useState("");
 
     const search = async () => {
         let resolvedData = await getErgoNameRegistrationData(searchQuery);
@@ -28,12 +31,18 @@ export default function SearchBoxModal() {
             alert("Please connect your wallet first!");
             return;
         }
-        const txInfo = sendTransaction(searchQuery, walletAddress);
-        console.log(txInfo);
+        const txInfo = await sendTransaction(searchQuery, walletAddress);
+        let transactionId = txInfo.transactionInfo;
+        setSentTransactionId(transactionId);
+        setShowTransactionModal(true);
     }
 
     const exploreAddress = () => {
-        window.location.href = "https://explorer.ergoplatform.com/en/addresses/" + resolvedAddress;
+        window.location.href = "https://testnet.ergoplatform.com/en/addresses/" + resolvedAddress;
+    }
+
+    const hideShowTransactionModal = () => {
+        setShowTransactionModal(false);
     }
 
     return (
@@ -46,6 +55,7 @@ export default function SearchBoxModal() {
             {available && priceToRegister !== 0 && <button className="bg-blue-400 px-4 py-2 pl-4 mt-4 ml-8" onClick={register}>Register</button>}
             {!available && resolvedAddress !== "" && <h1 className="pl-8 pt-4 text-white font-bold text-2xl">Address: {resolvedAddress}</h1>}
             {!available && resolvedAddress !== "" && <button className="bg-blue-400 px-4 py-2 pl-4 mt-4 ml-8" onClick={exploreAddress}>Go to Address</button>}
+            {showSentTransactionModal && <SentTransactionModal transactionId={sentTransactionId} onHide={hideShowTransactionModal} />}
         </div>
     )
 }
