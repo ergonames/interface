@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
 
+declare global {
+  interface Window {
+    ergoConnector: any;
+  }
+}
+
 interface ConnectWalletModalProps {
   onHide: () => void;
 }
@@ -21,9 +27,9 @@ export default function ConnectWalletModal({ onHide }: ConnectWalletModalProps) 
     }, []);
 
   const connectNautilus = async () => {
-    window.ergoConnector.nautilus.connect().then(async (granted) => {
+    window.ergoConnector.nautilus.connect().then(async (granted: any) => {
       if (granted) {
-        await window.ergoConnector.nautilus.getContext().then(async (context) => {
+        await window.ergoConnector.nautilus.getContext().then(async (context: any) => {
           let address = await context.get_change_address();
           setAddress(address);
           localStorage.setItem("walletAddress", address);
