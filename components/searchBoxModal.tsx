@@ -1,3 +1,4 @@
+import { getErgoNameRegistrationData } from "ergonames";
 import { sendTransaction } from "@/utils/txBuilder";
 import { useState } from "react";
 
@@ -7,16 +8,17 @@ export default function SearchBoxModal() {
     const [resolvedAddress, setResolvedAddress] = useState("");
     const [priceToRegister, setPriceToRegister] = useState(0);
 
-    const search = () => {
-        let ran = Math.floor(Math.random() * 100);
-        if (ran > 50) {
-            setAvailable(true);
-            setPriceToRegister(10);
-            setResolvedAddress("");
-        } else {
+    const search = async () => {
+        let resolvedData = await getErgoNameRegistrationData(searchQuery);
+        console.log(resolvedData)
+        if (resolvedData.ergoname_registered) {
             setAvailable(false);
+            setResolvedAddress("Filler address - TODO: get current owner address");
             setPriceToRegister(0);
-            setResolvedAddress("3WxXZUhKHMD9zcMKbJZ1nBuxeABCh9CQWCNi4oVPPb1aLWSAJ2Qo");
+        } else {
+            setAvailable(true);
+            setResolvedAddress("");
+            setPriceToRegister(10);
         }
     }
 
