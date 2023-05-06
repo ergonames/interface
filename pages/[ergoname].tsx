@@ -28,7 +28,7 @@ export default function ErgoNamePage() {
     }, [ergoname]);
 
     return (
-        <div className="bg-blue-400 h-screen">
+        <div className="bg-slate-800 h-screen">
             <Navbar />
             {isRegistered ? <ExploreNameModal ergoname={ergoname} /> : <RegisterNameModal ergoname={ergoname} />}
             <Footer />

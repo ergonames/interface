@@ -5,7 +5,7 @@ import SearchBoxModal from "@/components/searchBoxModal"
 export default function Home() {
   return (
     <main>
-      <div className="bg-blue-400 h-screen">
+      <div className="bg-slate-800 h-screen">
         <Navbar />
         <SearchBoxModal />
         <Footer />

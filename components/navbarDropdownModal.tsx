@@ -19,7 +19,7 @@ export default function NavbarDropdownModal({ onHide }: NavbarDropdownModalProps
     }
 
     return (
-        <div className="absolute top-16 right-8 border-2 border-gray-500 rounded-md w-48 bg-blue-500">
+        <div className="absolute top-16 right-8 border-2 border-gray-500 rounded-md w-48 bg-slate-600">
             <button onClick={changeLanguage} className="text-center py-4 border-b-2 w-full text-white font-bold text-xl">Language</button>
             <button onClick={goToDocs} className="text-center py-4 border-b-2 text-white font-bold text-xl w-[100%]">Docs</button>
             <div className="ml-10 pt-4">
