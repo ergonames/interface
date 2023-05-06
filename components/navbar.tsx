@@ -3,6 +3,7 @@ import ConnectWalletModal from "./connectWalletModal";
 import { useEffect, useState } from "react";
 import { VscThreeBars } from "react-icons/vsc";
 import NavbarDropdownModal from "./navbarDropdownModal";
+import Image from "next/image";
 
 export default function Navbar() {
     const [showConnectWalletModal, setShowConnectWalletModal] = useState(false);
@@ -47,7 +48,7 @@ export default function Navbar() {
 
     return (
         <div className="py-2 bg-white">
-            <Link href="/"><img src="/img/logo-light-h.jpeg" alt="Logo" className="h-16 pl-6" /></Link>
+            <Link href="/"><Image className="pl-6" src="/img/logo-light-h.jpeg" width={250} height={70} alt="Logo" /></Link>
             <div className="float-right">
                 <ul className="pr-8">
                     <button onClick={connectWallet} className="absolute top-4 right-24 bg-slate-400 px-4 py-2 font-bold text-lg rounded-lg">{ address }</button>
